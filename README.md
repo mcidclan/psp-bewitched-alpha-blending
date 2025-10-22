@@ -8,10 +8,10 @@ On PSP, performing true alpha blending between two textures with standard techni
 This technique separates the alpha channel calculation and performs blending independently, then forces the result directly into the framebuffer output, enabling true alpha compositing between textures.
 
 ## How It Works
-
-1. Extract and blend the alpha components from both textures separately
-2. Blend the RGB components using standard alpha blending
-3. Force the calculated alpha back into the framebuffer
+1. **Shift alpha to green channel**: Use `sceGuCopyImage` with `GU_PSM_5650` format to shift both textures one pixel right, moving the alpha component into the green channel
+2. **Blend isolated alphas**: Blend the alpha components (now in green) from both textures separately using fixed blending
+3. **Shift back the result**: Use `sceGuCopyImage` to shift the blended alpha one pixel left, restoring it to the alpha channel
+4. **Blend RGB components**: Perform standard alpha blending on the RGB components using the preserved alpha values
 
 ## Usage
 ```c
