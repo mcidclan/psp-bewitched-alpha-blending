@@ -1,12 +1,11 @@
 # Bewitched Texture Blending - Isolated Alpha Method
+A technique to achieve true alpha blending between two textures on PlayStation Portable, working around the hardware constraint where the framebuffer's alpha channel is reserved for stencil and alpha test operations.
 
 ## The Problem
-
-On PSP, it's normally impossible to perform true alpha blending between two textures because the framebuffer does not preserve the alpha component. This channel is reserved for stencil buffer operations and alpha blending tests.
+On PSP, performing true alpha blending between two textures with standard techniques is challenging because the framebuffer does not preserve this component during rendering.
 
 ## The Solution
-
-This technique separates the alpha channel and calculates the blending independently, then forces the alpha component directly into the framebuffer output.
+This technique separates the alpha channel calculation and performs blending independently, then forces the result directly into the framebuffer output, enabling true alpha compositing between textures.
 
 ## How It Works
 
